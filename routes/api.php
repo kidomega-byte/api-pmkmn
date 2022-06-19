@@ -36,7 +36,7 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::apiResource('/ahliwaris', App\Http\Controllers\AhliwarisController::class);
 Route::apiResource('/datameninggal', App\Http\Controllers\AlmController::class);
-
+Route::apiResource('/meninggal', App\Http\Controllers\MeninggalController::class);
 
 Route::get('/', function () {
     return view('welcome');
