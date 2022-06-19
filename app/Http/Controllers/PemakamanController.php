@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Meninggal;
+use App\Models\Pemakaman;
 use Illuminate\Http\Request;
 use App\Http\Resources\API;
 use Validator;
 
-class MeninggalController extends Controller
+class PemakamanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,11 +16,11 @@ class MeninggalController extends Controller
      */
     public function index()
     {
-        //mengambil model meninggal
-        $data = Meninggal::get();
+        //mengambil model pemakaman
+        $data = Pemakaman::get();
 
         //menampilkan nilai data ke json
-        return new API(true, 'Data Meninggal', $data);    
+        return new API(true, 'Data Pemakaman', $data);
     }
 
     /**
@@ -44,18 +44,17 @@ class MeninggalController extends Controller
         //Insert data
         $input = $request->all();
         $validator = Validator::make($request->all(),[
-            'tempat_meninggal'      => 'required|string|max:255',
-            'pemakaman_id'          => 'required|integer|max:255',
-            'alm_id'                => 'required|integer|max:255',
-            'tanggal_meninggal'     => 'required|date|max:255'
+            'nama_pkm'   => 'required|string|max:255',
+            'alamat'     => 'required|string|max:255',
+            'blok_id'    => 'required|integer|max:255',
         ]);
         if($validator->fails()){
             return response()->json($validator->errors());       
         }
-        $data = Meninggal::create($input);
+        $data = Pemakaman::create($input);
         return response()->json([
             "success" => true,
-            "message" => "data Meninggal berhasil ditambahkan",
+            "message" => "data Pemakaman berhasil ditambahkan",
             "data" => $data
         ]);
     }
@@ -63,13 +62,13 @@ class MeninggalController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Meninggal  $meninggal
+     * @param  \App\Models\Pemakaman  $pemakaman
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         //tampil data sesuai id
-        $data = Meninggal::find($id);
+        $data = Pemakaman::find($id);
         if (is_null($data)) {
         return response()->json("Not Found!");
         }
@@ -79,10 +78,10 @@ class MeninggalController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Meninggal  $meninggal
+     * @param  \App\Models\Pemakaman  $pemakaman
      * @return \Illuminate\Http\Response
      */
-    public function edit(Meninggal $meninggal)
+    public function edit(Pemakaman $pemakaman)
     {
         //
     }
@@ -91,41 +90,45 @@ class MeninggalController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Meninggal  $meninggal
+     * @param  \App\Models\Pemakaman  $pemakaman
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Meninggal $meninggal)
+    public function update(Request $request, Pemakaman $pemakaman)
     {
         //ubah data
         $validator = Validator::make($request->all(),[
-            'tempat_meninggal' => 'required|string|max:255',
+            'nama_pkm' => 'required|string|max:255',
+            'alamat'   => 'required|string|max:255',
+            'blok_id'  => 'required|integer|max:255',
         ]);
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
 
-        $meninggal->update([
-            'tempat_meninggal' => $request->tempat_meninggal,
+        $pemakaman->update([
+            'nama_pkm' => $request->nama_pkm,
+            'alamat' => $request->alamat,
+            'blok_id' => $request->blok_id,
         ]);
 
         return response()->json([
             "success" => true,
-            "message" => "data Meninggal berhasil Diubah",
-            "data" => $meninggal
+            "message" => "data Pemakaman berhasil Diubah",
+            "data" => $pemakaman
         ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Meninggal  $meninggal
+     * @param  \App\Models\Pemakaman  $pemakaman
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Meninggal $meninggal)
+    public function destroy(Pemakaman $pemakaman)
     {
         //
-        $meninggal->delete();
+        $pemakaman->delete();
 
         //return response
         return new API(true, 'Data Berhasil Dihapus!', null);
