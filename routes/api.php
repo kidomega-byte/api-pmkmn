@@ -39,6 +39,7 @@ Route::apiResource('/datameninggal', App\Http\Controllers\AlmController::class);
 Route::apiResource('/meninggal', App\Http\Controllers\MeninggalController::class);
 Route::apiResource('/pemakaman', App\Http\Controllers\PemakamanController::class);
 Route::apiResource('/blok', App\Http\Controllers\BlokController::class);
+Route::apiResource('/heregistrasi', App\Http\Controllers\HeregistrasiController::class);
 
 Route::get('/', function () {
     return view('welcome');
